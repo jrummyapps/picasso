@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -88,8 +87,6 @@ public class SampleGalleryActivity extends PicassoSampleActivity {
     }
   }
 
-  private static final String TAG = "SampleGalleryActivity";
-
   private void loadImage() {
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
         != PackageManager.PERMISSION_GRANTED) {
@@ -101,13 +98,9 @@ public class SampleGalleryActivity extends PicassoSampleActivity {
     Picasso.with(this).load(image).fit().centerInside().into(imageView, new Callback.EmptyCallback() {
 
       @Override public void onSuccess() {
-        Log.d(TAG, "onSuccess() called");
         progressBar.setVisibility(View.GONE);
       }
 
-      @Override public void onError() {
-        Log.d(TAG, "onError() called");
-      }
     });
   }
 }
