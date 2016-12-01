@@ -23,6 +23,7 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import java.io.File;
 import java.io.IOException;
 
 import static android.content.ContentResolver.SCHEME_FILE;
@@ -32,8 +33,11 @@ import static com.squareup.picasso.Picasso.LoadedFrom.DISK;
 
 class FileRequestHandler extends ContentStreamRequestHandler {
 
+  private final AppIconLoader iconLoader;
+
   FileRequestHandler(Context context) {
     super(context);
+    iconLoader = AppIconLoader.with(context);
   }
 
   @Override public boolean canHandleRequest(Request data) {
@@ -47,6 +51,14 @@ class FileRequestHandler extends ContentStreamRequestHandler {
         Bitmap bitmap = loadMediaBitmap(request.uri);
         if (bitmap != null) {
           return new Result(bitmap, DISK);
+        }
+      } else if (mimeType.equals("application/vnd.android.package-archive")) {
+        File file = new File(request.uri.getPath());
+        if (file.canRead()) {
+          Bitmap bitmap = iconLoader.getApkIcon(file.getAbsolutePath());
+          if (bitmap != null) {
+            return new Result(bitmap, DISK);
+          }
         }
       }
     }

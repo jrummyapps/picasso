@@ -64,6 +64,10 @@ import static com.squareup.picasso.Utils.log;
  */
 public class Picasso {
 
+  public static final String SCHEME_PACKAGE = "pkg";
+  public static final String SCHEME_COMPONENT = "cmp";
+  public static final String SCHEME_APK = "apk";
+
   /** Callbacks for Picasso events. */
   public interface Listener {
     /**
@@ -192,6 +196,7 @@ public class Picasso {
     allRequestHandlers.add(new ContentStreamRequestHandler(context));
     allRequestHandlers.add(new AssetRequestHandler(context));
     allRequestHandlers.add(new FileRequestHandler(context));
+    allRequestHandlers.add(new AppIconRequestHandler(context));
     allRequestHandlers.add(new NetworkRequestHandler(dispatcher.downloader, stats));
     requestHandlers = Collections.unmodifiableList(allRequestHandlers);
 
