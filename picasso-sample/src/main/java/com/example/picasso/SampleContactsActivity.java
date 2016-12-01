@@ -16,10 +16,16 @@
  */
 package com.example.picasso;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.widget.ListView;
@@ -28,6 +34,10 @@ import static android.provider.ContactsContract.Contacts;
 
 public class SampleContactsActivity extends PicassoSampleActivity
     implements LoaderManager.LoaderCallbacks<Cursor> {
+  private static final boolean IS_HONEYCOMB =
+      Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+  private static final int READ_CONTACTS_REQUEST = 9394;
+
   private SampleContactsAdapter adapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,24 @@ public class SampleContactsActivity extends PicassoSampleActivity
     lv.setAdapter(adapter);
     lv.setOnScrollListener(new SampleScrollListener(this));
 
-    getSupportLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+        != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this,
+          new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_REQUEST);
+    } else {
+      getSupportLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
+    }
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode,
+                                         @NonNull String[] permissions,
+                                         @NonNull int[] grantResults) {
+    if (requestCode == READ_CONTACTS_REQUEST) {
+      if (grantResults.length > 0
+          && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        getSupportLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
+      }
+    }
   }
 
   @Override public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -68,19 +95,19 @@ public class SampleContactsActivity extends PicassoSampleActivity
 
     Uri CONTENT_URI = Contacts.CONTENT_URI;
 
-    String SELECTION = Contacts.DISPLAY_NAME_PRIMARY
+    String SELECTION = (IS_HONEYCOMB ? Contacts.DISPLAY_NAME_PRIMARY : Contacts.DISPLAY_NAME)
         + "<>''"
         + " AND "
         + Contacts.IN_VISIBLE_GROUP
         + "=1";
 
-    String SORT_ORDER = Contacts.SORT_KEY_PRIMARY;
+    String SORT_ORDER = IS_HONEYCOMB ? Contacts.SORT_KEY_PRIMARY : Contacts.DISPLAY_NAME;
 
     String[] PROJECTION = {
         Contacts._ID, //
         Contacts.LOOKUP_KEY, //
-        Contacts.DISPLAY_NAME_PRIMARY, //
-        Contacts.PHOTO_THUMBNAIL_URI, //
+        IS_HONEYCOMB ? Contacts.DISPLAY_NAME_PRIMARY : Contacts.DISPLAY_NAME, //
+        IS_HONEYCOMB ? Contacts.PHOTO_THUMBNAIL_URI : Contacts._ID, //
         SORT_ORDER
     };
 
