@@ -37,8 +37,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.example.picasso.R.id.url;
-
 public class SampleAppIconsActivity extends PicassoSampleActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +124,7 @@ public class SampleAppIconsActivity extends PicassoSampleActivity {
             .inflate(R.layout.sample_list_detail_item, parent, false);
         holder = new ViewHolder();
         holder.image = (ImageView) convertView.findViewById(R.id.photo);
-        holder.text = (TextView) convertView.findViewById(url);
+        holder.text = (TextView) convertView.findViewById(R.id.url);
         convertView.setTag(holder);
       } else {
         holder = (ViewHolder) convertView.getTag();
