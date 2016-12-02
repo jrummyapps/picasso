@@ -76,9 +76,11 @@ public class AppIconLoader {
     if (defaultAppIcon == null) {
       Drawable drawable;
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-        drawable = Resources.getSystem().getDrawableForDensity(android.R.mipmap.sym_def_app_icon, dpi);
+        drawable = Resources.getSystem().getDrawableForDensity(
+            android.R.mipmap.sym_def_app_icon, dpi);
       } else {
-        drawable = Resources.getSystem().getDrawable(android.R.drawable.sym_def_app_icon);
+        drawable = Resources.getSystem().getDrawable(
+            android.R.drawable.sym_def_app_icon);
       }
       defaultAppIcon = drawableToBitmap(drawable);
     }

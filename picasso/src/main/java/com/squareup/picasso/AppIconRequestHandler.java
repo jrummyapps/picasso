@@ -39,7 +39,9 @@ class AppIconRequestHandler extends RequestHandler {
 
   @Override public boolean canHandleRequest(Request data) {
     String scheme = data.uri.getScheme();
-    return SCHEME_PACKAGE.equals(scheme) || SCHEME_COMPONENT.equals(scheme) || SCHEME_APK.equals(scheme);
+    return SCHEME_PACKAGE.equals(scheme)
+        || SCHEME_COMPONENT.equals(scheme)
+        || SCHEME_APK.equals(scheme);
   }
 
   @Nullable @Override public Result load(Request request, int networkPolicy) throws IOException {
@@ -70,6 +72,8 @@ class AppIconRequestHandler extends RequestHandler {
         if (bitmap != null) {
           return new Result(bitmap, DISK);
         }
+        break;
+      default:
         break;
     }
     return null;

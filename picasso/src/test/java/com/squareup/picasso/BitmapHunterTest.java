@@ -20,18 +20,21 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.view.Gravity;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.FutureTask;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowBitmap;
 import org.robolectric.shadows.ShadowMatrix;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.FutureTask;
 
 import static android.graphics.Bitmap.Config.ARGB_8888;
 import static android.media.ExifInterface.ORIENTATION_FLIP_HORIZONTAL;
@@ -297,7 +300,7 @@ public class BitmapHunterTest {
 
   @Test public void forFileWithAuthorityRequest() {
     Action action = mockAction(FILE_KEY_1, FILE_1_URL);
-    BitmapHunter hunter = forRequest(mockPicasso(new FileRequestHandler(context)), dispatcher,
+    BitmapHunter hunter = forRequest(mockPicasso(new FileRequestHandler(RuntimeEnvironment.application)), dispatcher,
         cache, stats, action);
     assertThat(hunter.requestHandler).isInstanceOf(FileRequestHandler.class);
   }
@@ -332,7 +335,7 @@ public class BitmapHunterTest {
 
   @Test public void forFileWithNoPathSegments() {
     Action action = mockAction("keykeykey", Uri.fromFile(new File("/")));
-    BitmapHunter hunter = forRequest(mockPicasso(new FileRequestHandler(context)), dispatcher,
+    BitmapHunter hunter = forRequest(mockPicasso(new FileRequestHandler(RuntimeEnvironment.application)), dispatcher,
         cache, stats, action);
     assertThat(hunter.requestHandler).isInstanceOf(FileRequestHandler.class);
   }
