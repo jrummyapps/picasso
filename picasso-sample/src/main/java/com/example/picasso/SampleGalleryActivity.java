@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.jrummyapps.picasso.Callback;
+import com.jrummyapps.picasso.Picasso;
 
 import static android.content.Intent.ACTION_PICK;
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;

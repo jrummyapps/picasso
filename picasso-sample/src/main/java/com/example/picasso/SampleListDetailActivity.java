@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+import com.jrummyapps.picasso.Picasso;
 
 public class SampleListDetailActivity extends PicassoSampleActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {

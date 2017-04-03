@@ -1,16 +1,15 @@
 package com.squareup.picasso.pollexor;
 
 import android.net.Uri;
-import com.squareup.picasso.Request;
+import com.jrummyapps.picasso.Request;
 import com.squareup.pollexor.Thumbor;
-import com.squareup.pollexor.ThumborUrlBuilder;
 import com.squareup.pollexor.ThumborUrlBuilder.ImageFormat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.squareup.picasso.Picasso.RequestTransformer;
+import static com.jrummyapps.picasso.Picasso.RequestTransformer;
 import static com.squareup.pollexor.ThumborUrlBuilder.format;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.robolectric.annotation.Config.NONE;

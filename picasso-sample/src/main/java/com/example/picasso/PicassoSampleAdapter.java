@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+import com.jrummyapps.picasso.Picasso;
 import java.util.Random;
 
 final class PicassoSampleAdapter extends BaseAdapter {

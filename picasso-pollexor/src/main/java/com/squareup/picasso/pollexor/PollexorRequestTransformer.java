@@ -2,12 +2,12 @@ package com.squareup.picasso.pollexor;
 
 import android.net.Uri;
 import android.os.Build;
-import com.squareup.picasso.Request;
+import com.jrummyapps.picasso.Request;
 import com.squareup.pollexor.Thumbor;
 import com.squareup.pollexor.ThumborUrlBuilder;
 import com.squareup.pollexor.ThumborUrlBuilder.ImageFormat;
 
-import static com.squareup.picasso.Picasso.RequestTransformer;
+import static com.jrummyapps.picasso.Picasso.RequestTransformer;
 import static com.squareup.pollexor.ThumborUrlBuilder.format;
 
 /**
